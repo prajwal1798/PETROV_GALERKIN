@@ -45,13 +45,19 @@ The 1D steady-state convection-diffusion equation:
 - Shape functions:
   ![equation](https://latex.codecogs.com/svg.image?\color{White}N_1=1-\frac{x}{l},\quad%20N_2=\frac{x}{l})
 
-### **Convection Term Matrix**
-- Matrix form of the convection term:
-  ![equation](https://latex.codecogs.com/svg.image?\color{White}\frac{u}{2}\begin{bmatrix}-1&1\\-1&1\end{bmatrix})
+### **Convection Term Matrix (Displayed as Table)**
+The convection term matrix:
+|   |   |
+|---|---|
+| -1 |  1 |
+| -1 |  1 |
 
-### **Diffusion Term Matrix**
-- Matrix form of the diffusion term:
-  ![equation](https://latex.codecogs.com/svg.image?\color{White}-\frac{k}{l^2}\begin{bmatrix}1&-1\\-1&1\end{bmatrix})
+### **Diffusion Term Matrix (Displayed as Table)**
+The diffusion term matrix:
+|   |   |
+|---|---|
+|  1 | -1 |
+| -1 |  1 |
 
 ---
 
