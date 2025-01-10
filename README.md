@@ -91,7 +91,7 @@ The script will then proceed to solve the problem using the selected method and 
 
 Note: For method comparison (option 4), the script will plot solutions from both Petrov-Galerkin methods, Standard Galerkin, and the Analytical Solution for direct comparison.
 
-## Acknowledgments:\
+## Acknowledgments
 Professor Perumal Nithiarasu for concepts of CFD using FEM, applying stabilization using Petrov-Galerkin methodology & scripting matrix assemblies.
 
 ## Author:
