@@ -79,10 +79,26 @@ The diffusion term matrix:
 ---
 
 ## **How to Run**
-1. Open MATLAB.
-2. Navigate to the directory containing the scripts.
-3. Run the following command:
-   ```matlab
-   convection_diffusion_solver
+Selection of Method
+--------------------------------------------------------------------------------------------------------------
+Choose the method to solve the convection-diffusion problem:
+1. Enter '1' for the Petrov-Galerkin Method with Optimal Alpha.
+2. Enter '2' for the Petrov-Galerkin Method with Alpha = 1.
+3. Enter '3' for the Standard Galerkin Method.
+4. Enter '4' for a comparison with the Analytical Solution.
+
+The script will then proceed to solve the problem using the selected method and plot the solution.
+
+Note: For method comparison (option 4), the script will plot solutions from both Petrov-Galerkin methods, Standard Galerkin, and the Analytical Solution for direct comparison.
+
+Acknowledgments:
+Professor Perumal Nithiarasu for concepts of CFD using FEM, applying stabilization using Petrov-Galerkin methodology & scripting matrix assemblies.
+
+Author:
+Prajwal Bharadwaj
+2337862
+MSc Computational Engineering (2023-25)
+Swansea University
+Wales, UK
 
 
