@@ -6,11 +6,6 @@
 ## **Overview**
 This MATLAB project solves the **1D steady-state convection-diffusion equation** using the finite element method (FEM) and compares different formulations:
 
-1. **Standard Galerkin (SG)**: Classical FEM formulation.
-2. **Petrov-Galerkin (PG) with optimal \(\alpha\)**: Adds artificial diffusion for stability.
-3. **Petrov-Galerkin (PG) with \(\alpha = 1\)**: Fully upwind method.
-4. **Analytical Solution**: Reference for comparison.
-
 ---
 
 ## **Problem Statement**
@@ -49,10 +44,14 @@ The 1D steady-state convection-diffusion equation:
 ## **Finite Element Discretization**
 - Shape functions:
   ![equation](https://latex.codecogs.com/svg.image?\color{White}N_1=1-\frac{x}{l},\quad%20N_2=\frac{x}{l})
-- Convection term matrix:
-  ![equation](https://latex.codecogs.com/svg.image?\color{White}\frac{u}{2}\begin{bmatrix}-1%20&%201\\-1%20&%201\end{bmatrix})
-- Diffusion term matrix:
-  ![equation](https://latex.codecogs.com/svg.image?\color{White}-\frac{k}{l^2}\begin{bmatrix}1%20&%20-1\\-1%20&%201\end{bmatrix})
+
+### **Convection Term Matrix**
+- Matrix form of the convection term:
+  ![equation](https://latex.codecogs.com/svg.image?\color{White}\frac{u}{2}\begin{bmatrix}-1&1\\-1&1\end{bmatrix})
+
+### **Diffusion Term Matrix**
+- Matrix form of the diffusion term:
+  ![equation](https://latex.codecogs.com/svg.image?\color{White}-\frac{k}{l^2}\begin{bmatrix}1&-1\\-1&1\end{bmatrix})
 
 ---
 
@@ -79,4 +78,5 @@ The 1D steady-state convection-diffusion equation:
 3. Run the following command:
    ```matlab
    convection_diffusion_solver
+
 
