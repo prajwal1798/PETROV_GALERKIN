@@ -1,41 +1,90 @@
 # PETROV_GALERKIN
  Petrov-Galerkin Stability analysis for Higher Peclet Numbers
 
-# **Convection-Diffusion Solver**
+# **1D Convection-Diffusion Solver**
 
 ## **Overview**
-This MATLAB program provides solutions to the steady-state convection-diffusion equation using the finite element method (FEM) with various approaches.
+This MATLAB project solves the **1D steady-state convection-diffusion equation** using the finite element method (FEM) and compares different formulations:
 
-## **Governing Equation**
-The general form of the 1D convection-diffusion equation:
-![equation](https://latex.codecogs.com/svg.image?u%20%5Cfrac%7Bd%5Cphi%7D%7Bdx%7D%20-%20k%20%5Cfrac%7Bd%5E2%5Cphi%7D%7Bdx%5E2%7D%20%3D%200)
-
-where:
-- \(u\): Constant convection velocity
-- \(k\): Diffusion coefficient
-- \(\phi\): Scalar quantity being transported
-
-### **Boundary Conditions**
-- \(\phi(0) = 1\)
-- \(\phi(L) = 0\)
-
-### **Analytical Solution**
-![equation](https://latex.codecogs.com/svg.image?%5Cphi(x)%20%3D%20%5Cfrac%7Be%5E%7B%5Cfrac%7Bu%20x%7D%7Bk%7D%7D%20-%20e%5E%7B%5Cfrac%7Bu%20L%7D%7Bk%7D%7D%7D%7B1%20-%20e%5E%7B%5Cfrac%7Bu%20L%7D%7Bk%7D%7D%7D)
-
-## **Finite Element Discretization**
-### **Shape Functions**
-For 1D linear elements:
-![equation](https://latex.codecogs.com/svg.image?N_1%20%3D%201%20-%20%5Cfrac%7Bx%7D%7Bl%7D,%20%5Cquad%20N_2%20%3D%20%5Cfrac%7Bx%7D%7Bl%7D)
-
-where \(l\) is the length of each element.
-
-### **Standard Galerkin Formulation for the Convection Term**
-![equation](https://latex.codecogs.com/svg.image?%5Cint_%7B%5COmega_e%7D%20%5Cmathbf%7BN%7D%5ET%20u%20%5Cfrac%7Bd%5Cphi%7D%7Bdx%7D%20d%5COmega%20%3D%20%5Cfrac%7Bu%7D%7B2%7D%20%5Cbegin%7Bbmatrix%7D%20-1%20%26%201%5C%5C%20-1%20%26%201%20%5Cend%7Bbmatrix%7D%20%5Cbegin%7Bbmatrix%7D%5Cphi_1%5C%5C%5Cphi_2%5Cend%7Bbmatrix%7D)
+1. **Standard Galerkin (SG)**: Classical FEM formulation.
+2. **Petrov-Galerkin (PG) with optimal \(\alpha\)**: Adds artificial diffusion for stability.
+3. **Petrov-Galerkin (PG) with \(\alpha = 1\)**: Fully upwind method.
+4. **Analytical Solution**: Reference for comparison.
 
 ---
 
-### **Instructions**
-1. Open MATLAB and navigate to the folder containing the script.
-2. Run the script by typing:
+## **Problem Statement**
+Solve the 1D convection-diffusion equation:
+\[
+u \frac{\partial \phi}{\partial x} - k \frac{\partial^2 \phi}{\partial x^2} = 0
+\]
+where:
+- \(u\) is the constant convection velocity.
+- \(k\) is the diffusion coefficient.
+- \(\phi\) is the scalar concentration variable.
+
+### **Boundary Conditions**
+- \(\phi(0) = 1\) (inlet)
+- \(\phi(L) = 0\) (outlet)
+
+---
+
+## **Methods Implemented**
+### 1. **Standard Galerkin Method (SG)**
+- **Discretization:** Linear shape functions for both the trial and weighting functions.
+- **Issue:** Unstable for advection-dominated flows (\(Pe > 1\)).
+
+### 2. **Petrov-Galerkin Method with Optimal \(\alpha\)**
+- Adds artificial diffusion:
+  \[
+  k_b = \frac{\alpha u h}{2}
+  \]
+  where \(h\) is the element length and \(\alpha\) is the stabilization parameter.
+
+- Optimal \(\alpha\):
+  \[
+  \alpha_{\text{opt}} = \coth(Pe) - \frac{1}{Pe}
+  \]
+  where \(Pe = \frac{u l}{2k}\) is the Peclet number.
+  
+- **Result:** Stable even for high Peclet numbers.
+
+### 3. **Petrov-Galerkin Method with \(\alpha = 1\)**
+- **Scheme:** Fully upwind formulation (\(\alpha = 1\)).
+- Adds significant numerical diffusion but ensures stability.
+
+### 4. **Analytical Solution**
+- Exact solution for reference:
+  \[
+  \phi(x) = \frac{e^{\frac{u x}{k}} - e^{\frac{u L}{k}}}{1 - e^{\frac{u L}{k}}}
+  \]
+
+---
+
+## **MATLAB Scripts**
+- `convection_diffusion_solver.m`: Main driver script.
+- `petrov_galerkin.m`: PG with optimal \(\alpha\).
+- `petrov_galerkin_alpha1.m`: PG with \(\alpha = 1\).
+- `standard_galerkin.m`: SG method.
+- `analytical_solution.m`: Computes the exact solution.
+
+---
+
+## **Results Summary**
+- **Standard Galerkin (SG)**: Oscillatory behavior for \(Pe > 1\).
+- **PG with optimal \(\alpha\)**: Matches the analytical solution at all Peclet numbers.
+- **PG with \(\alpha = 1\)**: Stable but introduces artificial diffusion.
+- **Grid Convergence:** Solution converges with 150 nodes for \(u = 25 \, \text{m/s}\).
+
+**Computation Time:**
+- PG Optimal: ~58.12s for \(u = 0.1 \, \text{m/s}\).
+- SG: ~51.78s for the same velocity.
+
+---
+
+## **How to Run**
+1. Open MATLAB.
+2. Navigate to the directory with the scripts.
+3. Run:
    ```matlab
    convection_diffusion_solver
